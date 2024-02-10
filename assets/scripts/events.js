@@ -1,7 +1,8 @@
-const button = document.querySelector('button');
+const buttons = document.querySelectorAll('button');
 
-const buttonClickHandler = () => {
-    alert('Gicule se gica!');
+const buttonClickHandler = (event) => {
+    // event.target.disabled = true;
+    console.log(event);
 };
 
 const anotherButtonClickHandler = () => {
@@ -13,8 +14,16 @@ const anotherButtonClickHandler = () => {
 
 const buttonFn = buttonClickHandler.bind(this);
 
-button.addEventListener('click', buttonFn);
+// button.addEventListener('click', buttonClickHandler);
 
-setTimeout(() => {
-    button.removeEventListener('click', buttonFn);
-}, 2000);
+// setTimeout(() => {
+//     button.removeEventListener('click', buttonClickHandler);
+// }, 2000);
+
+buttons.forEach(btn => {
+    btn.addEventListener('mouseenter', buttonClickHandler)
+});
+
+window.addEventListener('scroll', event => {
+    console.log(event);
+})
