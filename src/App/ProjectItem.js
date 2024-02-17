@@ -6,6 +6,7 @@ export class ProjectItem {
 
 	constructor(id, updateProjectListsFunction, type) {
 		this.id = id;
+		this.hasActiveTooltip = false;
 		this.updateProjectListsHandler = updateProjectListsFunction;
 		this.connectMoreInfoButton();
 		this.connectSwitchButton(type);
@@ -19,7 +20,7 @@ export class ProjectItem {
 		const projectElement = document.getElementById(this.id);
 		const tooltipText = projectElement.dataset.extraInfo;
 		import('./Tooltip.js').then((module) => {
-            const tooltip = new module.Tooltip(
+			const tooltip = new module.Tooltip(
 				() => {
 					this.hasActiveTooltip = false;
 				},
@@ -48,17 +49,12 @@ export class ProjectItem {
 		const moreInfoButton = projectItemElement.querySelector(
 			'button:first-of-type'
 		);
-		moreInfoButton.addEventListener(
-			'click',
-			this.showMoreInfoHandler.bind(this)
-		);
+		moreInfoButton.addEventListener('click', this.showMoreInfoHandler.bind(this));
 	}
 
 	connectSwitchButton(type) {
 		const projectItemElement = document.getElementById(this.id);
-		let switchButton = projectItemElement.querySelector(
-			'button:last-of-type'
-		);
+		let switchButton = projectItemElement.querySelector('button:last-of-type');
 		switchButton = DOMHelper.clearEventListeners(switchButton);
 		switchButton.textContent = type === 'active' ? 'Finish' : 'Activate';
 		switchButton.addEventListener(
